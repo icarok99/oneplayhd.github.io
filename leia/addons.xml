@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="hunter.fm" name="[B]Hunter.FM[/B]" version="0.0.1" provider-name="Equipe OnePlay">
-<requires>
-	<import addon="script.module.simplejson"/>
-    <import addon="script.module.kodi-six" />
-    <import addon="script.module.requests"/>
-</requires>
-<extension point="xbmc.python.pluginsource" library="default.py">
-	<provides>audio</provides>
-</extension>
-<extension point="xbmc.addon.metadata">
-    <summary>Hunter.FM</summary>
-    <description>Hunter.FM é um addon para repdrodução das radios do grupo hunter.fm</description>
-    <disclaimer>Nao somos filiados ao xbmc kodi nem ao hunter.fm, esse é um plugin independente</disclaimer>
-	<website>https://hunter.fm/</website>
-    <platform>all</platform>
-	<assets>
-		<icon>icon.jpg</icon>
-		<fanart>fanart.png</fanart>
-    </assets>
-</extension>
-</addon>
-
-<addon	id="One.repo"
-        name="[B][COLOR white]Repositorio[/COLOR]: [COLOR aquamarine]ONE[/COLOR][COLOR white]PLAY[/COLOR][/B]"
-		version="1.11"
-		provider-name="TEAM [COLOR aquamarine]ONE[/COLOR][COLOR white]PLAY[/COLOR]">
+  <addon id="One.repo" name="[B][COLOR white]Repositorio[/COLOR]: [COLOR aquamarine]ONE[/COLOR][COLOR white]PLAY[/COLOR][/B]" version="1.11" provider-name="TEAM [COLOR aquamarine]ONE[/COLOR][COLOR white]PLAY[/COLOR]">
 	<requires>
     	<import addon="xbmc.addon" version="12.0.0"/>
 	</requires>
@@ -59,16 +34,35 @@
             <icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
         </assets>
-	    <news></news>
+	    <news/>
 	</extension>
 </addon>
-
-<addon id="plugin.program.advancedsettings" name="Easy Advanced Settings" version="0.9.0" provider-name="kinkin">
+  <addon id="hunter.fm" name="[B]Hunter.FM[/B]" version="0.0.1" provider-name="Equipe OnePlay"> 
+<requires>
+	<import addon="script.module.simplejson"/>
+    <import addon="script.module.kodi-six"/>
+    <import addon="script.module.requests"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="default.py">
+	<provides>audio</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+    <summary>Hunter.FM</summary>
+    <description>Hunter.FM é um addon para repdrodução das radios do grupo hunter.fm</description>
+    <disclaimer>Nao somos filiados ao xbmc kodi nem ao hunter.fm, esse é um plugin independente</disclaimer>
+	<website>https://hunter.fm/</website>
+    <platform>all</platform>
+	<assets>
+		<icon>icon.jpg</icon>
+		<fanart>fanart.png</fanart>
+    </assets>
+</extension>
+</addon>
+  <addon id="plugin.program.advancedsettings" name="Easy Advanced Settings" version="0.9.0" provider-name="kinkin">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
-    <extension point="xbmc.python.pluginsource"
-               	library="default.py">
+    <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
@@ -78,29 +72,28 @@
         <platform>all</platform>
         <language>en</language>
         <license>GNU GENERAL PUBLIC LICENSE</license>
-        <forum></forum>
-        <website></website>
-        <source></source>
-        <email></email>
+        <forum/>
+        <website/>
+        <source/>
+        <email/>
     </extension>
 
 </addon>
-
-<addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="1.4.9" provider-name="drinfernoo">
+  <addon id="plugin.program.openwizard" name="[COLOR limegreen]Open[/COLOR]Wizard" version="1.4.9" provider-name="drinfernoo">
     <requires>
-        <import addon="xbmc.python" version="2.1.0" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.six" />
-        <import addon="script.kodi.android.update" optional="true" version="1.1.7" />
-        <import addon="script.speedtester" optional="true" version="1.1.2" />
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.requests"/>
+        <import addon="script.module.six"/>
+        <import addon="script.kodi.android.update" optional="true" version="1.1.7"/>
+        <import addon="script.speedtester" optional="true" version="1.1.2"/>
     </requires>
-
+    
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
     </extension>
-
-    <extension point="xbmc.service" library="startup.py" start="startup" />
-
+    
+    <extension point="xbmc.service" library="startup.py" start="startup"/>
+    
     <extension point="xbmc.addon.metadata">
         <summary lang="en">[COLOR limegreen]Open[/COLOR]Wizard</summary>
         <description lang="en">[COLOR limegreen]Open[/COLOR]Wizard offers many maintenance features, selective add-on data saving, and automated build installs.</description>
@@ -149,7 +142,7 @@
 1.3.2
  - Fix build restore
 1.3.1
- - Fix "Keep Login Info" menu
+ - Fix "Keep Login Info" menu        
 1.3.0
  - Fix formatting of saved restore times
  - Fix local build zip being deleted on restore
@@ -176,7 +169,7 @@
 1.2.7
  - Add TheMovieDb Helper
 1.2.6
- - Fix Seren PM OAuth
+ - Fix Seren PM OAuth    
 1.2.5
  - Fix typo in debridit.py
 1.2.4
@@ -225,19 +218,40 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.doramasplus" version="1.0.5" name="[COLOR pink]DORAMAS[/COLOR]" provider-name="OnePlay Team">
+  <addon id="plugin.video.OnePlay.Matrix" name="[COLOR aquamarine][B]ONE[/COLOR][COLOR white]PLAY[/B][/COLOR]" version="3.2.0" provider-name="Equipe OnePlay"> 
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
+		<import addon="script.module.beautifulsoup4"/>
+        <import addon="script.module.requests"/>
+    </requires>  
+    <extension point="xbmc.python.pluginsource" library="app.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+		<summary lang="pt">OnePlay é um plugin que exibe conteudos free</summary>
+		<description lang="pt">Todos os videos são de sites terceiros, não hospedamos conteudo</description>
+        <platform>all</platform>
+        <disclaimer>The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
+  <addon id="plugin.video.doramasplus" version="1.0.5" name="[COLOR pink]DORAMAS[/COLOR]" provider-name="OnePlay Team">
+    <requires>
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.requests"/>
 		<import addon="script.module.beautifulsoup4"/>
 		<import addon="script.module.resolveurl" optional="true"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
-    </extension>
+    </extension>	
     <extension point="xbmc.addon.metadata">
 		<summary lang="pt">Doramas é um addon de dramas asiaticos</summary>
 		<description lang="pt">Todos os videos são de sites de terceiros, não hospedamos conteudo</description>
@@ -250,8 +264,7 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.f4mTester" version="3.0.1" name="f4mTester" provider-name="Shani">
+  <addon id="plugin.video.f4mTester" version="3.0.1" name="f4mTester" provider-name="Shani">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.video.F4mProxy" version="3.0.1"/>
@@ -263,16 +276,15 @@
 
     <extension point="xbmc.addon.metadata">
         <summary>f4mTester</summary>
-        <description></description>
+        <description/>
         <platform>all</platform>
     </extension>
 </addon>
-
-<addon id="plugin.video.iptvorg" version="0.0.1" name="IPTV ORG" provider-name="Joel">
+  <addon id="plugin.video.iptvorg" version="0.0.1" name="IPTV ORG" provider-name="Joel">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.beautifulsoup4"/>
         <import addon="script.module.requests"/>
     </requires>
@@ -291,8 +303,7 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.iptvpremium" name="[B]IPTV PREMIUM[/B]" version="1.0.1" provider-name="Equipe OnePlay">
+  <addon id="plugin.video.iptvpremium" name="[B]IPTV PREMIUM[/B]" version="1.0.1" provider-name="Equipe OnePlay">
     <requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 		<import addon="script.module.simplejson"/>
@@ -321,12 +332,11 @@
 		</news>
 	</extension>
 </addon>
-
-<addon id="plugin.video.kingiptv" version="0.0.1" name="KING IPTV" provider-name="Joel">
+  <addon id="plugin.video.kingiptv" version="0.0.1" name="KING IPTV" provider-name="Joel">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.beautifulsoup4"/>
         <import addon="script.module.requests"/>
         <import addon="script.module.inputstreamhelper"/>
@@ -348,42 +358,17 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.OnePlay.Matrix" name="[COLOR aquamarine][B]ONE[/COLOR][COLOR white]PLAY[/B][/COLOR]" version="3.1.8" provider-name="Equipe OnePlay">
+  <addon id="plugin.video.picante" version="1.0.1" name="[COLOR red]PICANTE[/COLOR]" provider-name="OnePlay Team">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
-		<import addon="script.module.beautifulsoup4"/>
-        <import addon="script.module.requests"/>
-        <import addon="script.module.inputstreamhelper" optional="true"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-		<summary lang="pt">OnePlay é um plugin que exibe conteudos free</summary>
-		<description lang="pt">Todos os videos são de sites terceiros, não hospedamos conteudo</description>
-        <platform>all</platform>
-        <disclaimer>The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
-</addon>
-
-<addon id="plugin.video.picante" version="1.0.1" name="[COLOR red]PICANTE[/COLOR]" provider-name="OnePlay Team">
-    <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.requests"/>
 		<import addon="script.module.beautifulsoup4"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
-    </extension>
+    </extension>	
     <extension point="xbmc.addon.metadata">
 		<summary lang="pt">Picante é um addon de entretenimento adulto</summary>
 		<description lang="pt">Todos os videos são de sites adultos, não hospedamos conteudo</description>
@@ -396,12 +381,11 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.resolvedor" name="Resolvedor" version="1.0.3" provider-name="Zoreu">
+  <addon id="plugin.video.resolvedor" name="Resolvedor" version="1.0.3" provider-name="Zoreu"> 
     <requires>
-	    <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+	    <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.requests"/>
 		<import addon="script.module.beautifulsoup4"/>
 		<import addon="script.module.resolveurl"/>
@@ -421,18 +405,17 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.showdebola" version="1.0.7" name="[COLOR lime]SHOW DE BOLA[/COLOR]" provider-name="OnePlay Team">
+  <addon id="plugin.video.showdebola" version="1.0.7" name="[COLOR lime]SHOW DE BOLA[/COLOR]" provider-name="OnePlay Team">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
         <import addon="script.module.beautifulsoup4"/>
         <import addon="script.module.fasthttp"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
-    </extension>
+    </extension>	
     <extension point="xbmc.addon.metadata">
 		<summary lang="pt">Show de bola é um addon que exibe os jogos aovivo</summary>
 		<description lang="pt">Todos os videos são de sites terceiros, não hospedamos conteudo</description>
@@ -445,12 +428,11 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.spartanaddon" version="0.0.1" name="[COLOR yellow]SPARTAN[/COLOR]" provider-name="OnePlay Team">
+  <addon id="plugin.video.spartanaddon" version="0.0.1" name="[COLOR yellow]SPARTAN[/COLOR]" provider-name="OnePlay Team">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.beautifulsoup4"/>
         <import addon="script.module.requests"/>
     </requires>
@@ -474,11 +456,10 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.thethunder" version="1.1.5" name="[COLOR violet]THUNDER[/COLOR]" provider-name="OnePlay Team">
+  <addon id="plugin.video.thethunder" version="1.1.5" name="[COLOR violet]THUNDER[/COLOR]" provider-name="OnePlay Team">
     <requires>
-        <import addon="script.module.kodi-helper" />
-        <import addon="service.subtitles.legendei" />
+        <import addon="script.module.kodi-helper"/>
+        <import addon="service.subtitles.legendei"/>        
     </requires>
     <extension point="xbmc.python.pluginsource" library="thethunder.py">
         <provides>video</provides>
@@ -497,12 +478,11 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="plugin.video.tubemusic" name="Tube Music" version="1.0.6" provider-name="OnePlay team">
+  <addon id="plugin.video.tubemusic" name="Tube Music" version="1.0.6" provider-name="OnePlay team">
 <requires>
-    <import addon="script.module.simplejson" />
-    <import addon="script.module.six" />
-    <import addon="script.module.kodi-six" />
+    <import addon="script.module.simplejson"/>
+    <import addon="script.module.six"/>
+    <import addon="script.module.kodi-six"/>
     <import addon="script.module.beautifulsoup4"/>
     <import addon="script.module.requests"/>
 </requires>
@@ -529,8 +509,7 @@
 	</news>
 </extension>
 </addon>
-
-<addon id="repository.ddurdle" name="ddurdle's XBMC Addons" version="1.0.2" provider-name="ddurdle">
+  <addon id="repository.ddurdle" name="ddurdle's XBMC Addons" version="1.0.2" provider-name="ddurdle">
 	<extension point="xbmc.addon.repository" name="ddurdle's XBMC Addon Repository">
 		<info compressed="false">https://raw.github.com/ddurdle/repository.ddurdle/master/addons.xml</info>
 		<checksum>https://raw.github.com/ddurdle/repository.ddurdle/master/addons.xml.md5</checksum>
@@ -542,8 +521,7 @@
 		<platform>all</platform>
 	</extension>
 </addon>
-
-<addon id="script.encrypttool" name="Encrypt add-on" version="1.0.2" provider-name="Oneplay team">
+  <addon id="script.encrypttool.lambda" name="Encrypt add-on, lambda" version="1.0.1" provider-name="Oneplay team">
     <requires>
         <import addon="script.module.six"/>
         <import addon="script.module.kodi-six"/>
@@ -561,8 +539,7 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="script.encrypttool.lambda" name="Encrypt add-on, lambda" version="1.0.1" provider-name="Oneplay team">
+  <addon id="script.encrypttool" name="Encrypt add-on" version="1.0.2" provider-name="Oneplay team">
     <requires>
         <import addon="script.module.six"/>
         <import addon="script.module.kodi-six"/>
@@ -580,14 +557,13 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="script.module.fasthttp" name="FastHttp" version="0.0.6" provider-name="Joel">
+  <addon id="script.module.fasthttp" name="FastHttp" version="0.0.6" provider-name="Joel">
     <requires>
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
     </requires>
-    <extension point="xbmc.python.module" library="lib" />
-    <extension point="xbmc.python.pluginsource" library="lib/default.py" />
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.python.pluginsource" library="lib/default.py"/>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">fasthttp - internet access tool for webscraping</summary>
@@ -602,13 +578,12 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="script.module.jsbeautifier" name="Jsbeautifier" version="1.10.3.1" provider-name="jsbeautifier">
+  <addon id="script.module.jsbeautifier" name="Jsbeautifier" version="1.10.3.1" provider-name="jsbeautifier">
     <requires>
         <import addon="xbmc.addon" version="16.1.000"/>
-        <import addon="script.module.six" version="1.6.1" />
+        <import addon="script.module.six" version="1.6.1"/>
     </requires>
-    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.python.module" library="lib"/>
     <extension point="xbmc.addon.metadata">
         <summary>Written by Einar Lielmanis, maintained and evolved by Liam Newman.</summary>
         <description>Beautify, unpack or deobfuscate JavaScript. Handles popular online obfuscators.</description>
@@ -618,20 +593,19 @@
         <website>https://beautifier.io/</website>
     </extension>
 </addon>
-
-<addon id="script.module.kodi-helper" name="KODI HELPER" version="0.0.4" provider-name="zoreu">
+  <addon id="script.module.kodi-helper" name="KODI HELPER" version="0.0.4" provider-name="zoreu">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
         <import addon="script.module.requests"/>
         <import addon="script.module.beautifulsoup4"/>
     </requires>
-    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.python.module" library="lib"/>
     <extension point="kodi.context.item">
         <menu id="kodi.core.main">
             <menu>
-                <label>KODI HELPER MENU</label>
+                <label>KODI HELPER MENU</label>              
                 <item library="context_proxy.py">
                     <label>PLAY IPTV WITH PROXY</label>
                     <visible>String.Contains(ListItem.path,plugin)</visible>
@@ -639,12 +613,12 @@
                 <item library="context_info.py">
                     <label>IPTV INFO</label>
                     <visible>String.Contains(ListItem.path,plugin)</visible>
-                </item>
+                </item>                                
                 <item library="context_torrent.py">
                     <label>PLAY TORRENT</label>
                     <visible>String.Contains(ListItem.path,plugin)</visible>
                 </item>
-
+                                
             </menu>
         </menu>
     </extension>
@@ -653,21 +627,17 @@
         <disclaimer lang="en">The author is not responsible for addon usage and does not host or distribute any of the content displayed by this addon.</disclaimer>
         <license>WTFPL, Version 2, December 2004. See included LICENSE.</license>
         <source>https://github.com/zoreu/script.module.kodi-helper</source>
-        <forum></forum>
+        <forum/>
         <assets>
             <icon>icon.png</icon>
         </assets>
     </extension>
 </addon>
-
-<addon id="script.module.kodi-six"
-       name="Kodi Six"
-       version="0.1.3"
-       provider-name="Roman V.M.">
+  <addon id="script.module.kodi-six" name="Kodi Six" version="0.1.3" provider-name="Roman V.M.">
   <requires>
     <import addon="xbmc.python" version="2.26.0"/>
   </requires>
-  <extension point="xbmc.python.module" library="libs" />
+  <extension point="xbmc.python.module" library="libs"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Wrappers around Kodi Python API for seamless Python 2/3 compatibility</summary>
     <description lang="en_GB">Wrappers around Kodi Python API that normalize handling of textual and byte strings in Python 2 and 3.</description>
@@ -682,19 +652,30 @@
 - Fix non-UTF-8 byte string decoding in Python 2.</news>
   </extension>
 </addon>
-
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.1.58" provider-name="gujal">
+  <addon id="script.module.resolveurl.xxx" version="2.1.18" name="Adult Resolver SMR Extension" provider-name="gujal">
+	<requires>
+		<!-- <import addon="xbmc.python" version="2.1.0"/> -->
+        <import addon="script.module.resolveurl" version="5.1.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib"/>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Resolve adult video host URL's to be playable in XBMC/Kodi.</summary>
+		<description lang="en">Resolve adult video host URL's to be playable in XBMC/Kodi.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+  <addon id="script.module.resolveurl" name="ResolveURL" version="5.1.58" provider-name="gujal">
     <requires>
         <!-- <import addon="xbmc.python" version="3.0.0" /> -->
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
-        <import addon="script.module.certifi" />
-        <import addon="plugin.video.youtube" optional="true" />
-        <import addon="script.module.python.twitch" optional="true" />
-        <import addon="plugin.googledrive" optional="true" />
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
+        <import addon="script.module.certifi"/>
+        <import addon="plugin.video.youtube" optional="true"/>
+        <import addon="script.module.python.twitch" optional="true"/>
+        <import addon="plugin.googledrive" optional="true"/>
     </requires>
-    <extension point="xbmc.python.module" library="lib" />
-    <extension point="xbmc.python.pluginsource" library="lib/default.py" />
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.python.pluginsource" library="lib/default.py"/>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en_GB">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
@@ -707,29 +688,11 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="script.module.resolveurl.xxx" version="2.1.18" name="Adult Resolver SMR Extension" provider-name="gujal">
-	<requires>
-		<!-- <import addon="xbmc.python" version="2.1.0"/> -->
-        <import addon="script.module.resolveurl" version="5.1.0" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Resolve adult video host URL's to be playable in XBMC/Kodi.</summary>
-		<description lang="en">Resolve adult video host URL's to be playable in XBMC/Kodi.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.six"
-       name="six"
-       version="1.15.0"
-       provider-name="gutworth">
+  <addon id="script.module.six" name="six" version="1.15.0" provider-name="gutworth">
   <requires>
-    <import addon="xbmc.python"
-    		version="2.14.0"/>
+    <import addon="xbmc.python" version="2.14.0"/>
   </requires>
-  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.python.module" library="lib"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Python 2 and 3 compatibility utilities.</summary>
     <description lang="en_GB">Six is a Python 2 and 3 compatibility library. It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions. See the documentation for more information on what is provided.</description>
@@ -742,8 +705,7 @@
     </assets>
   </extension>
 </addon>
-
-<addon id="script.oneplayvip.downloader" name="ONEPLAY VIP DOWNLOADER" version="1.0.2" provider-name="Oneplay team">
+  <addon id="script.oneplayvip.downloader" name="ONEPLAY VIP DOWNLOADER" version="1.0.2" provider-name="Oneplay team">
     <requires>
         <import addon="script.module.six"/>
         <import addon="script.module.kodi-six"/>
@@ -766,16 +728,12 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="script.video.F4mProxy"
-	     name="F4mProxy"
-	     version="3.0.1"
-	     provider-name="Shani">
+  <addon id="script.video.F4mProxy" name="F4mProxy" version="3.0.1" provider-name="Shani">
   <requires>
-    <import addon="xbmc.python" version="2.1.0" />
-    <import addon="script.module.requests" />
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.requests"/>
   </requires>
-  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.python.module" library="lib"/>
     <extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>executable</provides>
   </extension>
@@ -788,16 +746,15 @@
     <description lang="en">Use this addon to play F4m v1 and v2 streams</description>
   </extension>
 </addon>
-
-<addon id="service.oneplaytv" version="0.0.3" name="ONEPLAY TV SMART" provider-name="OnePlay Team">
+  <addon id="service.oneplaytv" version="0.0.3" name="ONEPLAY TV SMART" provider-name="OnePlay Team">
     <requires>
-        <import addon="script.module.simplejson" />
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
+        <import addon="script.module.simplejson"/>
+        <import addon="script.module.six"/>
+        <import addon="script.module.kodi-six"/>
 		<import addon="script.module.beautifulsoup4"/>
         <import addon="script.module.requests"/>
     </requires>
-    <extension point="xbmc.service" library="service.py" />
+    <extension point="xbmc.service" library="service.py"/>
     <extension point="xbmc.addon.metadata">
         <summary>Oneplay TV SMART</summary>
         <description>Tenha um web site na sua tv smart com canais do oneplay</description>
@@ -809,19 +766,14 @@
         </assets>
     </extension>
 </addon>
-
-<addon id="service.subtitles.legendei"
-       name="Legendei"
-       version="0.0.3"
-       provider-name="zoreu">
+  <addon id="service.subtitles.legendei" name="Legendei" version="0.0.3" provider-name="zoreu">
 	<requires>
-		<import addon="script.module.kodi-six" />
+		<import addon="script.module.kodi-six"/>
 		<import addon="script.module.beautifulsoup4"/>
 		<import addon="script.module.requests"/>
 		<import addon="vfs.rar"/>
 	</requires>
-	<extension point="xbmc.subtitle.module"
-             library="legendei.py" />
+	<extension point="xbmc.subtitle.module" library="legendei.py"/>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en_GB">Legendei</summary>
 		<description lang="en_GB">Search and download subtitles for movies and TV-Series from legendei.tv</description>
@@ -838,70 +790,65 @@
 		<source>https://github.com/zoreu/service.subtitles.legendei</source>
 	</extension>
 </addon>
-
-<addon
-		id="vkkodi.repo" name="[B][COLOR yellow]  Vikings  [COLOR orange]Repositorio Vikings Oficial! A Casa Oficial dos Melhores Add-ons BR[/B][/COLOR]"
-		version="3.31"
-		provider-name="[B][COLOR gold]Vikings TEAM[/B][/COLOR]">
-
+  <addon id="vkkodi.repo" name="[B][COLOR yellow]  Vikings  [COLOR orange]Repositorio Vikings Oficial! A Casa Oficial dos Melhores Add-ons BR[/B][/COLOR]" version="3.31" provider-name="[B][COLOR gold]Vikings TEAM[/B][/COLOR]">
+		
 		<requires>
         <import addon="xbmc.addon" version="12.0.0"/>
 		</requires>
-
+		
 		<extension point="xbmc.addon.repository" name=".Vikings Repositorio">
-
-
+		
+		
 	<dir>
 			<info compressed="false">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/addons.xml</info>
 			<checksum>https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master</datadir>
 			<hashes>false</hashes>
     </dir>
-
+	
 	<dir minversion="16.0.0" maxversion="18.9.0">
 			<info compressed="false">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/leia/addons.xml</info>
 			<checksum>https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/leia/addons.xml.md5</checksum>
 			<datadir zip="true">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/leia</datadir>
 			<hashes>false</hashes>
     </dir>
-
+   
    <dir minversion="18.9.1">
 			<info compressed="false">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/matrix/addons.xml</info>
 			<checksum>https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/matrix/addons.xml.md5</checksum>
 			<datadir zip="true">https://github.com/vikingskoditeam/vikingskoditeam.github.io/raw/master/matrix</datadir>
 			<hashes>false</hashes>
     </dir>
-
+	
 	</extension>
-
-
+		
+	
 	<extension point="xbmc.addon.metadata">
-		<summary lang="pt_br"></summary>
-        <description lang="pt_br"></description>
+		<summary lang="pt_br"/>
+        <description lang="pt_br"/>
 		<platform>all</platform>
 		<source>http://raw.github.com/vikingskoditeam/vikingskoditeam.github.io/master</source>
 		 <assets>
             <icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
         </assets>
-
-	<news></news>
-
+				
+	<news/>
+		
 	<summary>Repositório Vikings levando os melhores addons a sua familia e aos quatro cantos do Mundo!!!</summary>
-
-	<description>
+		
+	<description>	
                     [B][COLOR orange]Repositório Vikings, SEM BANIMENTO! SEM SCRIPT MALICIOSO!! PURO, LIMPO E SIMPLES!!![/COLOR][/B]
 					[B][COLOR red]Repositório oficial Vikings Build - Proibido reprodução total ou parcial sem prévia autorização[/COLOR][/B]
 					[B][COLOR white]Addons deste repositório é de uso gratuito!![/COLOR][/B]
 					[B][COLOR firebrick]Proibido a venda dos add-ons contidos neste repositório[/COLOR][/B]
 	</description>
-
+		
 <disclaimer>[B][COLOR orange]Repositório Vikings é apenas um AGREGADOR de ADDONS e, assim como o Google.com, apenas agrega e organiza ADDONS DE TERCEIROS. Não somos responsáveis pelos arquivos aqui encontrados.[/COLOR][/B]</disclaimer>
-
+		
 	</extension>
 </addon>
-
-<addon id="xbmc.python" version="2.26.0" provider-name="Team Kodi">
+  <addon id="xbmc.python" version="2.26.0" provider-name="Team Kodi">
   <backwards-compatibility abi="2.1.0"/>
   <requires>
     <import addon="xbmc.core" version="0.1.0"/>
