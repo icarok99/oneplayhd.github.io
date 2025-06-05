@@ -1,17 +1,20 @@
-# Repositorio Oficial OnePlayHD, todos os direitos reservados! 
- Como Instalar o repositório OnePlay para ter acesso aos Mlehores Conteúdos da Atualidade!
+# Repositório Oficial OnePlayHD — Todos os direitos reservados!  
+Este repositório atua exclusivamente como um agregador de links e não hospeda, transmite ou reproduz qualquer conteúdo de mídia. A responsabilidade pelo conteúdo acessado é exclusiva do respectivo provedor ou fonte original.  
+
+Como instalar o repositório OnePlay para ter acesso aos melhores conteúdos da atualidade!
+
 <p align="left">
   <ul>
-    <li>Vá para as configurações do Kodi, GESTOR DE ARQUIVOS (FILE MANAGER).</li>
-    <li>Clque em "Adicionar Origem"</li>
-    <li>O endereço para a fonte é <code>https://oneplayhd.com/oneplay</code>  (O nome já vai aparecer "oneplay").</li>
-    <li>Confirme e retorne a tela principal, e vá para "Add-ons"</li>
-    <li>Em Add-ons, CLique  no icone de uma CAIXINGA DE PAPELÂO, em seguida vá em INSTALAR A PARTIR DE UM ARQUIVO ZIP. Na realação de Dispositivos, selecione o dispositivo ONEPLAY, e pressione ok</a>.</li>
-    <li>Após a Intalação, Retorne para Add-ons, clique novamente na CAIXINHA DE PAPELÃO, e selecione "Instalar via repositório"</li>
-    <li>Seleciono o "Repositorio: ONEPLAY"</li>
-    
-                                       ** Pronto, Tudo certo, agora é só se divertir !**
+    <li>Acesse as configurações do Kodi e vá para <strong>Gerenciador de Arquivos (File Manager)</strong>.</li>
+    <li>Clique em <strong>Adicionar Origem</strong>.</li>
+    <li>Insira o endereço da fonte: <code>https://oneplayhd.com/oneplay</code> (o nome "oneplay" será exibido automaticamente).</li>
+    <li>Confirme e retorne à tela principal. Acesse <strong>Add-ons</strong>.</li>
+    <li>Em <strong>Add-ons</strong>, clique no ícone da <strong>caixa de papelão</strong> e selecione <strong>Instalar a partir de um arquivo ZIP</strong>. Na lista de dispositivos, selecione <strong>ONEPLAY</strong> e pressione OK.</li>
+    <li>Após a instalação, retorne a <strong>Add-ons</strong>, clique novamente na caixa de papelão e selecione <strong>Instalar via repositório</strong>.</li>
+    <li>Selecione <strong>Repositório: ONEPLAY</strong>.</li>
   </ul>
 </p>
 
-## Use, Abuse e Reuse!
+<p><strong>Pronto! Tudo certo — agora é só aproveitar com responsabilidade!</strong></p>
+
+## Use, Abuse e Reuse — com consciência e dentro da lei!
