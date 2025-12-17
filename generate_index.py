@@ -1,70 +1,57 @@
 from pathlib import Path
-import re
 
-ROOT = Path(".")
+def gerar_index_em_pasta(pasta: Path):
+    itens = sorted(
+        pasta.iterdir(),
+        key=lambda x: (x.is_file(), x.name.lower())
+    )
 
-def extrair_versao(nome):
-    m = re.search(r"-([\d\.]+)\.zip$", nome)
-    return m.group(1) if m else None
+    linhas = []
+    linhas.append("<html>")
+    linhas.append("<body>")
+    linhas.append("<h1>Directory listing</h1>")
+    linhas.append("<hr/>")
+    linhas.append("<pre>")
 
-def zip_mais_recente(pasta: Path):
-    zips = []
-    for f in pasta.iterdir():
-        if f.is_file() and f.suffix.lower() == ".zip":
-            ver = extrair_versao(f.name)
-            if ver:
-                try:
-                    vtuple = tuple(map(int, ver.split(".")))
-                    zips.append((vtuple, f))
-                except ValueError:
-                    pass
-    if not zips:
-        return None
-    return max(zips, key=lambda x: x[0])[1]
+    # link para pasta pai
+    if pasta.parent != pasta:
+        linhas.append('<a href="../index.html">..</a>')
 
-def gerar_index_raiz():
-    # HTML VISUAL (formato antigo, sem table)
-    linhas = [
-        "<html>",
-        "<body>",
-        "<h1>Directory listing</h1>",
-        "<hr/>",
-        "<pre>"
-    ]
-
-    # BLOCO OCULTO PARA O KODI (fora do html)
-    hidden_links = [
-        '<div id="div" style="display:none">',
-        "<table>"
-    ]
-
-    for pasta in sorted(p for p in ROOT.iterdir() if p.is_dir() and not p.name.startswith(".")):
-        zip_recente = zip_mais_recente(pasta)
-        if not zip_recente:
+    for item in itens:
+        if item.name.startswith("."):
             continue
 
-        # Visual para navegador
-        linhas.append(f'<a href="./{pasta.name}/">{pasta.name}/</a>')
+        if item.name == "index.html":
+            continue
 
-        # Link direto para o Kodi
-        rel = zip_recente.relative_to(ROOT).as_posix()
-        hidden_links.append(
-            f'<tr><td><a href="{rel}">{rel}</a></td></tr>'
-        )
+        if item.is_dir():
+            linhas.append(
+                f'<a href="./{item.name}\\index.html">{item.name}</a>'
+            )
 
-    linhas += [
-        "</pre>",
-        "</body>",
-        "</html>"
-    ]
+        elif item.is_file() and item.suffix.lower() == ".zip":
+            linhas.append(
+                f'<a href="./{item.name}">{item.name}</a>'
+            )
 
-    hidden_links += [
-        "</table>",
-        "</div>"
-    ]
+    linhas.append("</pre>")
+    linhas.append("</body>")
+    linhas.append("</html>")
 
-    conteudo_final = "\n".join(linhas) + "\n\n" + "\n".join(hidden_links)
-    (ROOT / "index.html").write_text(conteudo_final, encoding="utf-8")
+    (pasta / "index.html").write_text(
+        "\n".join(linhas),
+        encoding="utf-8"
+    )
+
+    print(f"✔ index gerado em: {pasta}")
+
+def varrer_recursivo(raiz: Path):
+    gerar_index_em_pasta(raiz)
+
+    for item in raiz.iterdir():
+        if item.is_dir() and not item.name.startswith("."):
+            varrer_recursivo(item)
 
 if __name__ == "__main__":
-    gerar_index_raiz()
+    raiz = Path(".")
+    varrer_recursivo(raiz)
