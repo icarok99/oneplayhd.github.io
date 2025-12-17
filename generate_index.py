@@ -4,6 +4,10 @@ import re
 
 ROOT = Path(".").resolve()
 
+ICON_BACK = "../icons/back.gif"
+ICON_ZIP  = "../icons/compressed.gif"
+ICON_BLANK = "../icons/blank.gif"
+
 def extrair_versao(nome):
     m = re.search(r"-([\d\.]+)\.zip$", nome)
     return m.group(1) if m else None
@@ -22,84 +26,66 @@ def zip_mais_recente(pasta: Path):
         return None
     return max(zips, key=lambda x: versao_key(x[0]))[1]
 
-def formatar_data(path: Path):
+def data_formatada(path: Path):
     return datetime.fromtimestamp(path.stat().st_mtime).strftime("%d/%m/%Y")
 
-# 🔹 INDEX DAS SUBPASTAS (modo humano)
-def gerar_index_pasta(pasta: Path):
-    zip_local = zip_mais_recente(pasta)
-    if not zip_local:
-        return
-
-    data = formatar_data(zip_local)
-
-    html = f"""<html>
-<body>
-<h1>Index of /{pasta.name}</h1>
-<hr>
-<table>
-<tr><th></th><th>Name</th><th align="right">Last modified</th></tr>
-<tr><td colspan="3"><hr></td></tr>
-
-<tr>
-<td valign="top"><img alt="[DIR]"></td>
-<td><a href="../index.html">..</a></td>
-<td align="right"></td>
-</tr>
-
-<tr>
-<td valign="top"><img alt="[ZIP]"></td>
-<td><a href="{zip_local.name}">{zip_local.name}</a></td>
-<td align="right">{data}</td>
-</tr>
-
-<tr><td colspan="3"><hr></td></tr>
-</table>
-</body>
-</html>"""
-
-    (pasta / "index.html").write_text(html, encoding="utf-8")
-
-# 🔹 INDEX DA RAIZ (modo Kodi)
 def gerar_index_raiz():
-    linhas = [
-        "<html><body>",
-        "<h1>Index of /</h1>",
-        "<hr>",
-        "<table>",
-        '<tr><th></th><th>Name</th><th align="right">Last modified</th></tr>',
-        '<tr><td colspan="3"><hr></td></tr>',
-    ]
+    linhas = []
+    linhas.append("<html>")
+    linhas.append("<body>")
+    linhas.append("<h1>          Repositorio OnePlay</h1>")
+    linhas.append("<table>")
+    linhas.append(
+        f'<tr><th valign="top"><img src="{ICON_BLANK}" alt="[ICO]"></th>'
+        '<th>Name</th><th>Last updates</th><th></th></tr>'
+    )
+    linhas.append('<tr><th colspan="5"><hr></th></tr>')
 
+    # Link Inicio
+    linhas.append(
+        f'<tr><td valign="top"><img src="{ICON_BACK}" alt="[PARENTDIR]"></td>'
+        '<td><a href="https://oneplayhd.com">Inicio</a></td>'
+        '<td>&nbsp;</td><td align="right"> - </td><td>&nbsp;</td></tr>'
+    )
+
+    # ZIPs (um por pasta)
     for pasta in sorted(ROOT.iterdir(), key=lambda x: x.name.lower()):
         if not pasta.is_dir() or pasta.name.startswith("."):
             continue
 
         zip_ok = zip_mais_recente(pasta)
-        if zip_ok:
-            data = formatar_data(zip_ok)
-            rel = zip_ok.relative_to(ROOT).as_posix()
+        if not zip_ok:
+            continue
 
-            linhas.append(f"""
-<tr>
-<td valign="top"><img alt="[ZIP]"></td>
-<td><a href="{rel}">{zip_ok.name}</a></td>
-<td align="right">{data}</td>
-</tr>
+        rel = zip_ok.relative_to(ROOT).as_posix()
+        data = data_formatada(zip_ok)
+
+        linhas.append(
+            f'<tr><td valign="top"><img src="{ICON_ZIP}" alt="[   ]"></td>'
+            f'<td><a href="{rel}">{zip_ok.name}</a></td>'
+            f'<td align="right">{data}</td></tr>'
+        )
+
+    linhas.append('<tr><th colspan="5"><hr></th></tr>')
+    linhas.append("</table>")
+
+    # Scripts (opcional – não afeta o Kodi)
+    linhas.append("""
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/vegas.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/custom.js"></script>
 """)
 
-    linhas += [
-        '<tr><td colspan="3"><hr></td></tr>',
-        "</table>",
-        "</body></html>"
-    ]
+    linhas.append("</body>")
+    linhas.append("</html>")
 
     (ROOT / "index.html").write_text("\n".join(linhas), encoding="utf-8")
 
 def main():
-    for pasta in ROOT.iterdir():
-        if pasta.is_dir() and not pasta.name.startswith("."):
-            gerar_index_pasta(pasta)
     gerar_index_raiz()
 
 if __name__ == "__main__":
