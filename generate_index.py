@@ -7,8 +7,8 @@ def extrair_versao(nome):
     m = re.search(r"-([\d\.]+)\.zip$", nome)
     return m.group(1) if m else None
 
-def pasta_tem_zip(pasta: Path) -> bool:
-    return any(pasta.rglob("*.zip"))
+def versao_key(ver):
+    return [int(p) for p in ver.split(".")]
 
 def zip_mais_recente(pasta: Path):
     zips = []
@@ -19,19 +19,18 @@ def zip_mais_recente(pasta: Path):
                 zips.append((ver, f))
     if not zips:
         return None
-    return max(
-        zips,
-        key=lambda x: [int(p) for p in x[0].split(".")]
-    )[1]
+    return max(zips, key=lambda x: versao_key(x[0]))[1]
+
+def coletar_zips_para_raiz():
+    encontrados = {}
+    for pasta in ROOT.iterdir():
+        if pasta.is_dir() and not pasta.name.startswith("."):
+            zip_ok = zip_mais_recente(pasta)
+            if zip_ok:
+                encontrados[zip_ok.name] = zip_ok
+    return encontrados
 
 def gerar_index(pasta: Path):
-    # ❗ regra: raiz sempre gera index
-    if pasta != ROOT and not pasta_tem_zip(pasta):
-        index = pasta / "index.html"
-        if index.exists():
-            index.unlink()
-        return
-
     linhas = [
         "<html>",
         "<body>",
@@ -40,27 +39,47 @@ def gerar_index(pasta: Path):
         "<pre>"
     ]
 
+    # link de retorno
     if pasta != ROOT:
         linhas.append('<a href="../index.html">..</a>')
 
-    # pastas válidas
+    # pastas
     for item in sorted(pasta.iterdir(), key=lambda x: x.name.lower()):
-        if item.is_dir() and pasta_tem_zip(item):
+        if item.is_dir() and not item.name.startswith("."):
             linhas.append(f'<a href="./{item.name}/index.html">{item.name}</a>')
 
-    # zip mais recente (somente se existir na pasta)
-    zip_recente = zip_mais_recente(pasta)
-    if zip_recente:
-        linhas.append(f'<a href="./{zip_recente.name}">{zip_recente.name}</a>')
+    # zip local (se houver)
+    zip_local = zip_mais_recente(pasta)
+    if zip_local:
+        linhas.append(f'<a href="./{zip_local.name}">{zip_local.name}</a>')
 
     linhas += ["</pre>", "</body>", "</html>"]
     (pasta / "index.html").write_text("\n".join(linhas), encoding="utf-8")
 
-def varrer(pasta: Path):
-    gerar_index(pasta)
-    for p in pasta.iterdir():
-        if p.is_dir() and not p.name.startswith("."):
-            varrer(p)
+def gerar_index_raiz():
+    linhas = [
+        "<html>",
+        "<body>",
+        "<h1>Repository</h1>",
+        "<hr/>",
+        "<pre>"
+    ]
+
+    zips = coletar_zips_para_raiz()
+
+    for nome in sorted(zips.keys()):
+        zip_path = zips[nome]
+        rel = zip_path.relative_to(ROOT)
+        linhas.append(f'<a href="{rel.as_posix()}">{nome}</a>')
+
+    linhas += ["</pre>", "</body>", "</html>"]
+    (ROOT / "index.html").write_text("\n".join(linhas), encoding="utf-8")
+
+def varrer():
+    for pasta in ROOT.iterdir():
+        if pasta.is_dir() and not pasta.name.startswith("."):
+            gerar_index(pasta)
+    gerar_index_raiz()
 
 if __name__ == "__main__":
-    varrer(ROOT)
+    varrer()
