@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def coletar_zips_recursivo(pasta: Path, base: Path):
     zips = []
 
@@ -51,9 +52,12 @@ def gerar_index_em_pasta(pasta: Path, raiz: Path):
                 f'<a href="./{item.name}">{item.name}</a>'
             )
 
+    # FECHA HTML NORMAL
     linhas.append("</pre>")
+    linhas.append("</body>")
+    linhas.append("</html>")
 
-    # 🔥 TABELA OCULTA SÓ NO INDEX DA RAIZ
+    # 🔥 TABELA OCULTA FORA DO HTML (GAMBIARRA INTENCIONAL PRO KODI)
     if pasta == raiz:
         zips = coletar_zips_recursivo(raiz, raiz)
 
@@ -67,11 +71,6 @@ def gerar_index_em_pasta(pasta: Path, raiz: Path):
 
         linhas.append("</table>")
         linhas.append("</div>")
-
-    linhas += [
-        "</body>",
-        "</html>",
-    ]
 
     (pasta / "index.html").write_text(
         "\n".join(linhas),
