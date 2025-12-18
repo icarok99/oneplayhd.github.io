@@ -2,14 +2,14 @@ from pathlib import Path
 
 
 def extrair_versao(nome: str):
-    partes = nome.replace("one.repo-", "").replace(".zip", "")
+    partes = nome.replace("One.repo-", "").replace(".zip", "")
     return tuple(int(p) for p in partes.split(".") if p.isdigit())
 
 
 def encontrar_repos_mais_recentes(raiz: Path):
     encontrados = []
 
-    for item in raiz.rglob("one.repo-*.zip"):
+    for item in raiz.rglob("One.repo-*.zip"):
         versao = extrair_versao(item.name)
         if versao:
             encontrados.append((versao, item))
@@ -98,3 +98,4 @@ if __name__ == "__main__":
     raiz = Path(".")
     repos_recentes = encontrar_repos_mais_recentes(raiz)
     varrer_recursivo(raiz, raiz, repos_recentes)
+
