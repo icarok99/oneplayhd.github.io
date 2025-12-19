@@ -31,7 +31,7 @@ def pasta_tem_zip_recursivo(pasta: Path) -> bool:
     )
 
 
-def remover_index_se_existe(pasta: Path):
+def remover_index(pasta: Path):
     index = pasta / "index.html"
     if index.exists():
         index.unlink()
@@ -39,16 +39,16 @@ def remover_index_se_existe(pasta: Path):
 
 
 def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
-    tem_zip_em_qualquer_nivel = pasta_tem_zip_recursivo(pasta)
+    tem_zip_abaixo = pasta_tem_zip_recursivo(pasta)
 
-    # ❌ remove index se não houver zip nem abaixo (exceto raiz)
-    if pasta != raiz and not tem_zip_em_qualquer_nivel:
-        remover_index_se_existe(pasta)
+    # ❌ remover index se não houver zip em nenhum nível (exceto raiz)
+    if pasta != raiz and not tem_zip_abaixo:
+        remover_index(pasta)
         return
 
-    # ❌ remove index da raiz se não existir zip nenhum no repo
+    # ❌ remover index da raiz se não existir zip nenhum
     if pasta == raiz and not repos_recentes:
-        remover_index_se_existe(pasta)
+        remover_index(pasta)
         return
 
     linhas = [
@@ -100,11 +100,13 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
     print(f"✔ index atualizado: {pasta}")
 
 
-def varrer(pasta: Path, raiz: Path, repos_recentes: list[Path]):
+def varrer_bottom_up(pasta: Path, raiz: Path, repos_recentes: list[Path]):
+    # 🔽 primeiro desce
     for sub in pasta.iterdir():
         if sub.is_dir() and not sub.name.startswith("."):
-            varrer(sub, raiz, repos_recentes)
+            varrer_bottom_up(sub, raiz, repos_recentes)
 
+    # 🔼 depois gera (propaga remoção para cima)
     gerar_index(pasta, raiz, repos_recentes)
 
 
@@ -113,8 +115,9 @@ if __name__ == "__main__":
 
     repos_recentes = encontrar_repos_mais_recentes(raiz)
 
-    varrer(raiz, raiz, repos_recentes)
+    # 🔥 bottom-up garante propagação correta
+    varrer_bottom_up(raiz, raiz, repos_recentes)
 
-    # 🔁 garante que a raiz reflita o estado final
+    # 🔁 raiz sempre regenerada no final
     repos_recentes = encontrar_repos_mais_recentes(raiz)
     gerar_index(raiz, raiz, repos_recentes)
