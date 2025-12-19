@@ -1,6 +1,9 @@
 from pathlib import Path
 import re
 
+# 🔥 flag global: qualquer mudança em index dispara atualização da raiz
+INDEX_MUDOU = False
+
 
 def extrair_versao(nome: str):
     m = re.search(r"One\.repo-(\d+(?:\.\d+)*)\.zip", nome)
@@ -24,7 +27,7 @@ def encontrar_repos_mais_recentes(raiz: Path) -> list[Path]:
     return [p for v, p in encontrados if v == maior]
 
 
-# ✅ zip PRECISA estar diretamente na pasta
+# ✅ zip precisa estar DIRETAMENTE na pasta
 def pasta_contem_zip_direto(pasta: Path) -> bool:
     return any(
         p.is_file() and p.suffix.lower() == ".zip"
@@ -33,17 +36,27 @@ def pasta_contem_zip_direto(pasta: Path) -> bool:
 
 
 def remover_index(pasta: Path):
+    global INDEX_MUDOU
     index = pasta / "index.html"
     if index.exists():
         index.unlink()
+        INDEX_MUDOU = True
         print(f"🧹 index removido: {pasta.resolve()}")
+
+
+def escrever_index(path: Path, conteudo: str):
+    global INDEX_MUDOU
+    if not path.exists() or path.read_text(encoding="utf-8") != conteudo:
+        path.write_text(conteudo, encoding="utf-8")
+        INDEX_MUDOU = True
+        print(f"✔ index atualizado: {path.parent.resolve()}")
 
 
 def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
     contem_zip_direto = pasta_contem_zip_direto(pasta)
     raiz_tem_zip_global = bool(repos_recentes)
 
-    # ❌ regra FINAL de remoção
+    # ❌ regra final de remoção
     if (
         (pasta == raiz and not raiz_tem_zip_global) or
         (pasta != raiz and not contem_zip_direto)
@@ -93,7 +106,7 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
         "</html>",
     ])
 
-    # 🔥 tabela só se a raiz tiver zip global
+    # 🔥 tabela oculta fora do HTML (só na raiz)
     if pasta == raiz and raiz_tem_zip_global:
         linhas.append("")
         linhas.append('<div id="Repositorio-KODI" style="display:none">')
@@ -108,12 +121,7 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
         linhas.append("</table>")
         linhas.append("</div>")
 
-    (pasta / "index.html").write_text(
-        "\n".join(linhas),
-        encoding="utf-8"
-    )
-
-    print(f"✔ index gerado: {pasta.resolve()}")
+    escrever_index(pasta / "index.html", "\n".join(linhas))
 
 
 def varrer_recursivo(pasta: Path, raiz: Path, repos_recentes: list[Path]):
@@ -131,3 +139,8 @@ if __name__ == "__main__":
     repos_recentes = encontrar_repos_mais_recentes(raiz)
 
     varrer_recursivo(raiz, raiz, repos_recentes)
+
+    # 🔁 se qualquer index mudou, força regeneração da raiz
+    if INDEX_MUDOU:
+        print("🔁 Mudança detectada — regenerando index da raiz")
+        gerar_index(raiz, raiz, repos_recentes)
