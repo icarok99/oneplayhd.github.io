@@ -10,7 +10,7 @@ def extrair_versao(nome: str):
 
 
 def encontrar_repos_mais_recentes(raiz: Path) -> list[Path]:
-    encontrados: list[tuple[tuple[int, ...], Path]] = []
+    encontrados = []
 
     for item in raiz.rglob("One.repo-*.zip"):
         versao = extrair_versao(item.name)
@@ -20,12 +20,11 @@ def encontrar_repos_mais_recentes(raiz: Path) -> list[Path]:
     if not encontrados:
         return []
 
-    maior_versao = max(v for v, _ in encontrados)
-    return [p for v, p in encontrados if v == maior_versao]
+    maior = max(v for v, _ in encontrados)
+    return [p for v, p in encontrados if v == maior]
 
 
-# 🔥 REGRA CORRETA:
-# zip precisa estar DIRETAMENTE na pasta
+# ✅ zip PRECISA estar diretamente na pasta
 def pasta_contem_zip_direto(pasta: Path) -> bool:
     return any(
         p.is_file() and p.suffix.lower() == ".zip"
@@ -41,10 +40,14 @@ def remover_index(pasta: Path):
 
 
 def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
-    contem_zip = pasta_contem_zip_direto(pasta)
+    contem_zip_direto = pasta_contem_zip_direto(pasta)
+    raiz_tem_zip_global = bool(repos_recentes)
 
-    # ❌ pasta sem zip → remove index (exceto raiz)
-    if pasta != raiz and not contem_zip:
+    # ❌ regra FINAL de remoção
+    if (
+        (pasta == raiz and not raiz_tem_zip_global) or
+        (pasta != raiz and not contem_zip_direto)
+    ):
         remover_index(pasta)
         return
 
@@ -74,9 +77,6 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
             continue
 
         if item.is_dir():
-            # 🔥 só mostra pasta se:
-            # - for raiz
-            # - OU tiver zip DIRETAMENTE dentro
             if pasta == raiz or pasta_contem_zip_direto(item):
                 linhas.append(
                     f'<a href="./{item.name}/index.html">{item.name}/</a>'
@@ -93,8 +93,8 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
         "</html>",
     ])
 
-    # 🔥 TABELA OCULTA FORA DO HTML (SÓ NA RAIZ)
-    if pasta == raiz and repos_recentes:
+    # 🔥 tabela só se a raiz tiver zip global
+    if pasta == raiz and raiz_tem_zip_global:
         linhas.append("")
         linhas.append('<div id="Repositorio-KODI" style="display:none">')
         linhas.append("<table>")
@@ -117,12 +117,11 @@ def gerar_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
 
 
 def varrer_recursivo(pasta: Path, raiz: Path, repos_recentes: list[Path]):
-    # 🔁 primeiro processa filhos
+    # 🔁 pós-ordem: filhos primeiro
     for item in pasta.iterdir():
         if item.is_dir() and not item.name.startswith("."):
             varrer_recursivo(item, raiz, repos_recentes)
 
-    # 🔥 depois decide se gera ou remove index da pasta atual
     gerar_index(pasta, raiz, repos_recentes)
 
 
@@ -130,8 +129,5 @@ if __name__ == "__main__":
     raiz = Path(".")
 
     repos_recentes = encontrar_repos_mais_recentes(raiz)
-
-    if not repos_recentes:
-        print("⚠ Nenhum .zip encontrado. Apenas a raiz será mantida.")
 
     varrer_recursivo(raiz, raiz, repos_recentes)
