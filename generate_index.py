@@ -13,21 +13,32 @@ def extrair_versao(nome: str):
     return tuple(map(int, m.group(1).split(".")))
 
 
-def pasta_tem_zip_recursivo(pasta: Path) -> bool:
-    return any(p.suffix.lower() == ".zip" for p in pasta.rglob("*.zip"))
+def tem_zip_direto(pasta: Path) -> bool:
+    return any(
+        p.is_file() and p.suffix.lower() == ".zip"
+        for p in pasta.iterdir()
+    )
+
+
+def tem_subindex(pasta: Path) -> bool:
+    return any(
+        (sub / "index.html").exists()
+        for sub in pasta.iterdir()
+        if sub.is_dir() and not sub.name.startswith(".")
+    )
 
 
 # =============================
-# Repositórios mais recentes
+# Versões
 # =============================
 
 def encontrar_repos_mais_recentes(raiz: Path) -> list[Path]:
     encontrados = []
 
     for item in raiz.rglob("One.repo-*.zip"):
-        versao = extrair_versao(item.name)
-        if versao:
-            encontrados.append((versao, item))
+        v = extrair_versao(item.name)
+        if v:
+            encontrados.append((v, item))
 
     if not encontrados:
         return []
@@ -37,28 +48,26 @@ def encontrar_repos_mais_recentes(raiz: Path) -> list[Path]:
 
 
 # =============================
-# Index handling
+# Index logic
 # =============================
 
 def gerar_ou_remover_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
     index = pasta / "index.html"
-    tem_zip_no_galho = pasta_tem_zip_recursivo(pasta)
 
-    # ❌ subpasta sem zip → remove index
-    if pasta != raiz and not tem_zip_no_galho:
+    zip_direto = tem_zip_direto(pasta)
+    sub_index = tem_subindex(pasta)
+
+    # 🔥 subpastas: remove se não fizer mais sentido
+    if pasta != raiz and not zip_direto and not sub_index:
         if index.exists():
             index.unlink()
             print(f"🧹 removido: {index}")
         return
 
-    # ❌ raiz sem zip nenhum → remove index
-    if pasta == raiz and not repos_recentes:
-        if index.exists():
-            index.unlink()
-            print(f"🧹 removido: {index}")
-        return
+    # =============================
+    # GERA INDEX
+    # =============================
 
-    # ✅ cria / recria index
     linhas = [
         "<!DOCTYPE html>",
         "<html>",
@@ -80,8 +89,7 @@ def gerar_ou_remover_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
             continue
 
         if item.is_dir():
-            # 🔥 só lista a pasta se houver zip DENTRO dela
-            if pasta_tem_zip_recursivo(item):
+            if tem_zip_direto(item) or (item / "index.html").exists():
                 linhas.append(
                     f'<a href="./{item.name}/index.html">{item.name}/</a>'
                 )
@@ -97,16 +105,18 @@ def gerar_ou_remover_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
         "</html>",
     ])
 
-    # 🔥 tabela oculta só na raiz
-    if pasta == raiz and repos_recentes:
+    # 🔥 tabela SEMPRE recalculada
+    if pasta == raiz:
         linhas.append("")
         linhas.append('<div id="Repositorio-KODI" style="display:none">')
         linhas.append("<table>")
+
         for repo in repos_recentes:
             rel = repo.relative_to(raiz).as_posix()
             linhas.append(
                 f'<tr><td><a href="{rel}">{rel}</a></td></tr>'
             )
+
         linhas.append("</table>")
         linhas.append("</div>")
 
@@ -115,7 +125,7 @@ def gerar_ou_remover_index(pasta: Path, raiz: Path, repos_recentes: list[Path]):
 
 
 # =============================
-# Varredura bottom-up
+# Traversal (bottom-up)
 # =============================
 
 def varrer_bottom_up(pasta: Path, raiz: Path, repos_recentes: list[Path]):
@@ -133,12 +143,12 @@ def varrer_bottom_up(pasta: Path, raiz: Path, repos_recentes: list[Path]):
 if __name__ == "__main__":
     raiz = Path(".")
 
-    # primeira leitura
-    repos_recentes = encontrar_repos_mais_recentes(raiz)
+    # 1️⃣ primeira leitura
+    repos = encontrar_repos_mais_recentes(raiz)
 
-    # 🔥 sempre bottom-up
-    varrer_bottom_up(raiz, raiz, repos_recentes)
+    # 2️⃣ limpa e gera tudo
+    varrer_bottom_up(raiz, raiz, repos)
 
-    # 🔁 recalcula estado final e força atualização da raiz
-    repos_recentes = encontrar_repos_mais_recentes(raiz)
-    gerar_ou_remover_index(raiz, raiz, repos_recentes)
+    # 3️⃣ leitura FINAL → garante rollback correto
+    repos = encontrar_repos_mais_recentes(raiz)
+    gerar_ou_remover_index(raiz, raiz, repos)
